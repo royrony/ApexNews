@@ -1,0 +1,13 @@
+<html>
+<body>
+<div style="width:270px;margin-left:35%;border-top:.5px solid  silver">
+{% if data %}
+{% for i in data %}
+	Title: <h3 style="color:red;size:30px"> {{i.title}}</h3>
+	<h3>Content: {{i.content}}</h3><br><br>
+{% endfor %}
+{% else %}
+<p> Record not found </p>
+{% endif %}
+</body>
+</html>

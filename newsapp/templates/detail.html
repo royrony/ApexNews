@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+<title>{{article.title}}</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/static/assets/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/static/assets/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/static/assets/css/animate.css">
+<link rel="stylesheet" type="text/css" href="/static/assets/css/slick.css">
+<link rel="stylesheet" type="text/css" href="/static/assets/css/theme.css">
+<link rel="stylesheet" type="text/css" href="/static/assets/css/style.css">
+<!--[if lt IE 9]>
+<script src="/static/assets/js/html5shiv.min.js"></script>
+<script src="/static/assets/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+<div id="preloader">
+  <div id="status">&nbsp;</div>
+</div>
+<a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
+<div class="container">
+  <header id="header">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="header_top">
+          <div class="header_top_left">
+            <ul class="top_nav">
+              <li><a href="#">Home</a></li>
+              <li><a href="/static/pages/page.html">About</a></li>
+              <li><a href="/static/pages/contact.html">Contact</a></li>
+              <li><a href="/static/pages/404.html">Error Page</a></li>
+            </ul>
+          </div>
+          <div class="header_top_right">
+            <form action="#" class="search_form">
+              <input type="text" placeholder="Text to Search">
+              <input type="submit" value="">
+            </form>
+          </div>
+        </div>
+        <div class="header_bottom">
+          <div class="header_bottom_left"><a class="logo" href="#">ApeX<strong>News</strong> <span>Personalized News Feed</span></a></div>
+          <div class="header_bottom_right"><a href="#"><img src="/static/images/addbanner_728x90_V1.jpg" alt=""></a></div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div id="navarea">
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav custom_nav">
+            <li class=""><a href="#">Home</a></li>
+            <li class="dropdown"> <a href="#" class="" data-toggle="dropdown" role="button" aria-expanded="false">Archives</a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="/static/pages/archive-main.html">Archive</a></li>
+                <li><a href="/static/pages/archive1.html">Archive 1</a></li>
+                <li><a href="/static/pages/archive2.html">Archive 2</a></li>
+                <li><a href="/static/pages/archive3.html">Archive 3</a></li>
+              </ul>
+            </li>
+            <li><a href="/static/pages/single.html">Single page</a></li>
+            <li><a href="/static/pages/contact.html">Contact</a></li>
+            <li><a href="/static/pages/404.html">404 page</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <section id="mainContent">
+    <div class="content_bottom">
+      <div class="col-lg-8 col-md-8">
+        <div class="content_bottom_left">
+          <div class="single_page_area">
+            <ol class="breadcrumb">
+              <li><a href="#">Home</a></li>
+              <li><a href="{% url 'list_of_news_by_category' article.category.slug %}">{{article.category}}</a></li>
+              <li class="active">{{article.title}}</li>
+            </ol>
+            <h2 class="post_titile">{{article.title}}</h2>
+            <div class="single_page_content">
+              <div class="post_commentbox"> <a href="#"><i class="fa fa-user"></i>{{article.user}}</a> <span><i class="fa fa-calendar"></i>{{article.date_created}}</span> <a href="{% url "list_of_news_by_category" article.category.slug %}"><i class="fa fa-tags"></i>{{article.category}}</a> </div>
+              {% if article.pic %}
+              <img class="img-center" src="{{article.pic.url}}" alt="">
+              {% endif %}
+              <p>{{article.content|safe}}</p>
+            </div>
+          </div>
+        </div>
+        {% load social_share %}
+        <div class="share_post"> {% post_to_facebook article.pic "Post to Facebook!" %}<a class="twitter" href="#"><i class="fa fa-twitter"></i>Twitter</a> <a class="googleplus" href="#"><i class="fa fa-google-plus"></i>Google+</a> <a class="linkedin" href="#"><i class="fa fa-linkedin"></i>LinkedIn</a> <a class="stumbleupon" href="#"><i class="fa fa-stumbleupon"></i>StumbleUpon</a> <a class="pinterest" href="#"><i class="fa fa-pinterest"></i>Pinterest</a> </div>
+        {% if similar_posts %}
+        {% for i in similar_posts %}
+        <div class="similar_post">
+          <h2>Similar Post You May Like <i class="fa fa-thumbs-o-up"></i></h2>
+          <ul class="small_catg similar_nav wow fadeInDown animated">
+            <li>
+              <div class="media wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;"> <a class="media-left related-img" href="#"><img src="{{i.pic.url}}" alt=""></a>
+                <div class="media-body">
+                  <h4 class="media-heading"><a href="#">{{i.title}}</a></h4>
+                  <p>{{i.content|truncatewords:30|striptags|safe}}</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        {% endfor %}
+              {% endif %}
+
+{% with comments.count as total_comments %}
+        <h2>{{ total_comments }} comment{{ total_comments|pluralize }}</h2>
+    {% endwith %}
+    
+    {% for comment in comments %}
+        <div>
+          <img src="https://images.vexels.com/media/users/3/129616/isolated/preview/fb517f8913bd99cd48ef00facb4a67c0-businessman-avatar-silhouette-by-vexels.png" class="img-circle" alt="Cinque Terre" width="50" height="50" style="vertical-align: middle;margin-top: 8px;">
+            <span style="font-size: 18px;">&nbsp;<u><b>by {{ comment.name }}</b> {{ comment.created|timesince }} ago</u></span>
+            <br>
+            <p style="margin-left: 4em;margin-top: -12px;font-size: 15px;">{{ comment.body }}</p>
+        </div>
+    {% empty %}
+        <p>There are no comments yet.</p>
+    {% endfor %}
+    
+    {% if new_comment %}
+        <h2>Your comment has been added.</h2>
+    {% else %}
+        <h2>Add a new comment</h2>
+        <form action="" method="POST">
+        <div style="height: auto;">
+            {{ comment_form.as_p }}
+            {% csrf_token %}
+            <p><input type="submit" class="btn btn-success" value="Add comment"></p>
+            </div>
+        </form>
+        
+    {%  endif %}
+
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="content_bottom_right">
+          <div class="single_bottom_rightbar">
+            <h2>Recent Post</h2>
+            <ul class="small_catg popular_catg wow fadeInDown">
+              <li>
+                <div class="media wow fadeInDown"> <a href="#" class="media-left"><img alt="" src="../images/112x112.jpg"> </a>
+                  <div class="media-body">
+                    <h4 class="media-heading"><a href="#">Duis condimentum nunc pretium lobortis </a></h4>
+                    <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="media wow fadeInDown"> <a href="#" class="media-left"><img alt="" src="../images/112x112.jpg"> </a>
+                  <div class="media-body">
+                    <h4 class="media-heading"><a href="#">Duis condimentum nunc pretium lobortis </a></h4>
+                    <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="media wow fadeInDown"> <a href="#" class="media-left"><img alt="" src="../images/112x112.jpg"> </a>
+                  <div class="media-body">
+                    <h4 class="media-heading"><a href="#">Duis condimentum nunc pretium lobortis </a></h4>
+                    <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="single_bottom_rightbar">
+            <ul role="tablist" class="nav nav-tabs custom-tabs">
+              <li class="active" role="presentation"><a data-toggle="tab" role="tab" aria-controls="home" href="#mostPopular">Most Popular</a></li>
+              <li role="presentation"><a data-toggle="tab" role="tab" aria-controls="messages" href="#recentComent">Recent Comment</a></li>
+            </ul>
+            <div class="tab-content">
+              <div id="mostPopular" class="tab-pane fade in active" role="tabpanel">
+                <ul class="small_catg popular_catg wow fadeInDown">
+                  <li>
+                    <div class="media wow fadeInDown"> <a class="media-left" href="#"><img src="../images/112x112.jpg" alt=""></a>
+                      <div class="media-body">
+                        <h4 class="media-heading"><a href="#">Duis condimentum nunc pretium lobortis </a></h4>
+                        <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra </p>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="media wow fadeInDown"> <a class="media-left" href="#"><img src="../images/112x112.jpg" alt=""></a>
+                      <div class="media-body">
+                        <h4 class="media-heading"><a href="#">Duis condimentum nunc pretium lobortis </a></h4>
+                        <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra </p>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="media wow fadeInDown"> <a class="media-left" href="#"><img src="../images/112x112.jpg" alt=""></a>
+                      <div class="media-body">
+                        <h4 class="media-heading"><a href="#">Duis condimentum nunc pretium lobortis </a></h4>
+                        <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra </p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div id="recentComent" class="tab-pane fade" role="tabpanel">
+                <ul class="small_catg popular_catg">
+                  <li>
+                    <div class="media wow fadeInDown"> <a class="media-left" href="#"><img src="../images/112x112.jpg" alt=""></a>
+                      <div class="media-body">
+                        <h4 class="media-heading"><a href="#">Duis condimentum nunc pretium lobortis </a></h4>
+                        <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra </p>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="media wow fadeInDown"> <a class="media-left" href="#"><img src="../images/112x112.jpg" alt=""></a>
+                      <div class="media-body">
+                        <h4 class="media-heading"><a href="#">Duis condimentum nunc pretium lobortis </a></h4>
+                        <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra </p>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="media wow fadeInDown"> <a class="media-left" href="#"><img src="../images/112x112.jpg" alt=""></a>
+                      <div class="media-body">
+                        <h4 class="media-heading"><a href="#">Duis condimentum nunc pretium lobortis </a></h4>
+                        <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra </p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="single_bottom_rightbar">
+            <h2>Blog Archive</h2>
+            <div class="blog_archive wow fadeInDown">
+              <form action="#">
+                <select>
+                  <option value="">Blog Archive</option>
+                  <option value="">October(20)</option>
+                </select>
+              </form>
+            </div>
+          </div>
+          <div class="single_bottom_rightbar wow fadeInDown">
+            <h2>Popular Lnks</h2>
+            <ul>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Blog Home</a></li>
+              <li><a href="#">Error Page</a></li>
+              <li><a href="#">Social link</a></li>
+              <li><a href="#">Login</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<footer id="footer">
+  <div class="footer_top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <div class="single_footer_top wow fadeInLeft">
+            <h2>Flicker Images</h2>
+            <ul class="flicker_nav">
+              <li><a href="#"><img src="/static/images/75x75.jpg" alt=""></a></li>
+              <li><a href="#"><img src="/static/images/75x75.jpg" alt=""></a></li>
+              <li><a href="#"><img src="/static/images/75x75.jpg" alt=""></a></li>
+              <li><a href="#"><img src="/static/images/75x75.jpg" alt=""></a></li>
+              <li><a href="#"><img src="/static/images/75x75.jpg" alt=""></a></li>
+              <li><a href="#"><img src="/static/images/75x75.jpg" alt=""></a></li>
+              <li><a href="#"><img src="/static/images/75x75.jpg" alt=""></a></li>
+              <li><a href="#"><img src="/static/images/75x75.jpg" alt=""></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <div class="single_footer_top wow fadeInDown">
+            <h2>Labels</h2>
+            <ul class="labels_nav">
+              <li><a href="#">Gallery</a></li>
+              <li><a href="#">Business</a></li>
+              <li><a href="#">Games</a></li>
+              <li><a href="#">Fashion</a></li>
+              <li><a href="#">Sports</a></li>
+              <li><a href="#">Technology</a></li>
+              <li><a href="#">Slider</a></li>
+              <li><a href="#">Life &amp; Style</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <div class="single_footer_top wow fadeInRight">
+            <h2>About Us</h2>
+            <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed nec laoreet orci, eget ullamcorper quam. Phasellus lorem neque, </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer_bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <div class="footer_bottom_left">
+            <p>Copyright &copy; 2018 <a href="#">ApeXNews</a></p>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <div class="footer_bottom_right">
+            <p>Developed BY Rony Roy</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="/static/assets/js/jquery.min.js"></script> 
+<script src="/static/assets/js/bootstrap.min.js"></script> 
+<script src="/static/assets/js/wow.min.js"></script> 
+<script src="/static/assets/js/slick.min.js"></script> 
+<script src="/static/assets/js/custom.js"></script>
+</body>
+</html>

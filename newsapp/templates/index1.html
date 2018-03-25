@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block head %}
+
+{% endblock %}
+
+
+{% block content %}
+{% if category %}
+   <h2 style="margin-left: 18%;margin-top: 5%;color: white"><ul>Posts in category "{{ category.name }}"</ul></h2>
+{% endif %}
+
+
+
+{% if posts %}
+{% for i in posts %}
+{% if i.moderated is True %}
+<div style="position:relative;top:40px;width:600px;height:220px;margin-left:15%;background-color: white;">
+{% if i.pic %}
+<div> <a href="{% url 'detail' i.pk %}"><img src="{{i.pic.url}}" height="219px" width="150px" style="border:1px solid black;"></a></div>
+{% endif %}
+<div style="position: relative;top: -220px;left: 170px;"><a href="{% url 'detail' i.pk %}"><font style="text-transform: uppercase;color: black;font-size: 1.9em;font-family: monospace;">{{i.title}}</font></a></div>
+<div style="position: relative;top: -210px;left: 170px;"><font style="text-transform: capitalize;color: black;font-size: 0.8em;font-style: italic;font-family: cursive;">Review By - {{i.user}}</font></div>
+<div style="position: relative;top: -225px;left: 390px;"><font style="text-transform: capitalize;color: black;font-size: 0.8em;">Category:{% for category in i.categories %}
+{% if not forloop.last %}, {% endif %}
+
+   {% endfor %}<a href="{% url "list_of_post_by_category" i.category.slug %}">{{i.category}}</a>
+</font></div>
+<div style="position: relative;top: -225px;left: 390px;"><font style="text-transform: capitalize;color: black;font-size: 0.8em;">Tags: {% for tag in i.tags.all %}
+
+       <a href="{% url "post_list_by_tag" tag.slug %}">{{ tag.name }}</a>
+
+       {% if not forloop.last %}, {% endif %}
+
+   {% endfor %}</font></div>
+
+<div style="position: relative;left:175px;top:-220px;width:400px;height: 150px;"><p>{{i.content|truncatewords:30|striptags|safe}}</p><a href="{% url 'detail' i.pk %}" style="position:static; float: right;">Read Full Review ></a></div>
+</div>
+</div>
+<div style="position: relative;width: 600px;margin-left:15%;top: 70px;"><hr style="background-color: #fff;
+	border-top: 2px solid #8c8b8b;"></div>
+{% endif %} 
+{% endfor %}
+{% endif %}
+{% if msg %}
+<h1 style="left: 0;line-height: 200px;margin: auto;margin-top: -100px;position: absolute;top: 50%;width: 100%;">{{msg}}</h1>
+{% endif %}
+<br>
+<br>
+{% if posts %}
+<h4 style="margin-left: 33%;color: white;">{% include "pagination.html" with page=posts %}</h4>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,17 @@
+Django==2.0.2
+django-autoslug==1.9.3
+django-ckeditor==5.4.0
+django-js-asset==1.0.0
+django-social-share==1.1.2
+django-taggit==0.22.2
+docutils==0.14
+get==0.0.39
+image==1.5.19
+Pillow==5.0.0
+post==0.0.26
+public==0.0.65
+pytz==2018.3
+query-string==0.0.28
+request==0.0.26
+six==1.11.0
+whitenoise==3.3.1

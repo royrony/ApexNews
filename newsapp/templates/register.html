@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block head %}
+<title> Sign Up </title>
+{% endblock %}
+
+{% block content %}
+<div style="width:400px;height:450px;margin-left:35%;margin-top:100px ;margin-bottom:20px;border:5px solid silver ;padding:40px 40px;background-color: white">
+<form action=' ' method = 'POST'>
+{% csrf_token %}
+{{form.as_p}}
+<br>
+<center><button type= 'submit' class='btn btn-success'> Register </button></center>
+</form>
+</div>
+{% endblock %}

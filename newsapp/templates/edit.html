@@ -1,0 +1,75 @@
+<html>
+<head>
+<link href="/static/styling.css"  rel="stylesheet">
+<link href="/static/css/bootstrap.min.css"  rel="stylesheet"> 
+<link href="/static/css/css.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" >
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#" style="font-family: 'Lobster', cursive;font-size: 50px;">ReviewHub</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/post/">Home<span class="sr-only">(current)</span></a></li>
+        <li><a href="/profile/">Profile</a></li>
+        <li><a href="/shop/">Store</a></li>
+        {% if request.user.is_authenticated %}
+        <li><a href="/post/new/">Post Review</a></li>
+        {% endif %}
+        
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      	<form class="navbar-form navbar-left" role="search" method="post" action='/search/'>
+        {% csrf_token %}
+            <input type="text" placeholder="Search" class="form-control" name="search_box" value="">&nbsp;
+            <button type="submit" value="" class="btn btn-default">Search</button>
+        </form>
+        {% if request.user.is_authenticated %}
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello {{request.user}} {% if request.user.profile.profilepic %}<img src="{{request.user.profile.profilepic.url}}" class="img-circle" width="25px" height="25px"/><span class="caret"></span></a>
+          <ul class="dropdown-menu" style="width: 350px;height: 220px;">
+            <li><img src="{{request.user.profile.profilepic.url}}" class="img-circle" width="100px" height="100px" style="position:relative;top: 10px;left:10px;" />
+            <a style="position: relative;top: -50px;left: 130px;" href="{% url 'profiledisp' %}"> <b>{{request.user.first_name}} {{request.user.last_name}}</a>
+<p style="color:black;position: relative;left:28px;top:-55px;text-align: center;">{{request.user.email}}</p></li>
+            <li role="separator" class="divider"></li>
+            <li><button onclick="location.href='/logout/'" type="submit" class="btn btn-default" style="position: relative;left: 40%;">Logout</button></li>
+          </ul>
+        </li>
+        {% endif %}
+        {% endif %}
+      </ul>
+        
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div style="width:660px;height:880px;margin-left:25%;margin-top:80px ;border:5px solid silver ;padding:30px 40px;background-color:black;">
+<center><h1 style="color: white"><b><u>Edit Post</u></b></h1></center><br>
+    <form method="POST" class="post-form" enctype="multipart/form-data">
+    {% csrf_token %}
+<h3 style="color: white">Title:</h3> {{form.title}}<br><br>
+<h3 style="color: white">Category:</h3> {{form.category}}
+<h3 style="color: white">Content:</h3> {{form.content}}<br>
+<h3 style="color: white">Pic: </h3>{{form.pic}}<br><br>
+<h3 style="color: white">Tags:</h3>{{form.tags}}<br><br><br>
+<center><button type="submit" value="submit" class="save btn btn-primary btn-md">Save</button></center>
+    </form>
+ </div>
+
+  <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+ <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/ckeditor/ckeditor-init.js"></script>
+<script type="text/javascript" src="/static/ckeditor/ckeditor/ckeditor.js"></script>
+</body>
+</html>

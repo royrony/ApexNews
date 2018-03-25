@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Welcome to Your Profile </title>
+{% endblock %}
+
+{% block content %}
+    <div class="content_bottom">
+      <div class="col-lg-8  col-md-8">
+        <div class="content_bottom">
+          <div class="single_page_area">
+            <ol class="breadcrumb">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Profile</a></li>
+              <li class="active">{{request.user}}</li>
+            </ol>
+        </div>
+    </div>
+</div>
+</div>
+</section>
+</div>
+<div class="container">
+    <div class="row profile">
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+				<!-- SIDEBAR USERPIC -->
+				{% if request.user.profile.profilepic %}
+				<div class="profile-userpic">
+					<center><img src="{{request.user.profile.profilepic.url}}" class="img-circle" alt="" width="150px" height="150px"></center>
+				</div>
+				{% endif %}
+				<!-- END SIDEBAR USERPIC -->
+				<!-- SIDEBAR USER TITLE -->
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+					<center><h3>{{request.user}}</h3></center>	
+					</div>
+					<div class="profile-usertitle-job">
+					<center><p>Developer</p></center>	
+					</div>
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				<!-- SIDEBAR MENU -->
+				<div class="profile-usermenu">
+					<ul class="nav">
+						<li class="active">
+							<a href="#">
+							<i class="glyphicon glyphicon-home"></i>
+							Overview </a>
+						</li>
+						<li>
+							<a href="/profile/">
+							<i class="glyphicon glyphicon-user"></i>
+							Edit Profile </a>
+						</li>
+						<li>
+							<a href="/postbyuser/" target="_blank">
+							<i class="glyphicon glyphicon-ok"></i>
+							Articles Written </a>
+						</li>
+						<li>
+							<a href="#">
+							<i class="glyphicon glyphicon-flag"></i>
+							Help </a>
+						</li>
+					</ul>
+				</div>
+				<!-- END MENU -->
+			</div>
+		</div>
+		<div class="col-md-9">
+            <div class="profile-content">
+            	<br>
+            	<br><br>
+			   <b>First Name: {{request.user.first_name}}</b><br>
+<b>Last Name: {{request.user.last_name}}</b><br>
+<b>Email: {{request.user.email}}</b><br>
+            </div>
+		</div>
+	</div>
+</div>
+{% endblock %}

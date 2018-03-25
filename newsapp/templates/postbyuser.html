@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+{% for k in request.user.article_set.all %}
+<div>
+<h1 style="color: red">Title:</h1> {{k.title}}
+</div>
+<div>
+<h1 style="color: red">Review:</h1> {{k.content|safe}}<br><br>
+</div>
+{% if k.pic %}
+Pic: <img src="{{k.pic.url}}" height="200px" width="200px"><br><br>
+{% endif %}<br><br>
+{% endfor %}
+</body>
+</html>
