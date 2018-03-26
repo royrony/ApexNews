@@ -115,18 +115,12 @@
           <div class="single_category wow fadeInDown">
             <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a href="#" class="title_text">National</a> </h2>
             <ul class="catg1_nav">
-              {% if data %}
-              {% for i in data %}
-              {% if i.category.slug == "national" %}
-              {% with i as mylist %}
-              {% for a in mylist.split %}
+              {% if national %}
+              {% for i in national|slice:":4" %}
               <li>
-                <div class="catgimg_container"> <a href="{{ a.get_absolute_url }}" class="catg1_img"><img alt="" src="{{a.pic.url}}" height="292px" width="150px"></a></div>
-                <h3 class="post_titile"><a href="{{ a.get_absolute_url }}">{{a.title}}</a></h3>
+                <div class="catgimg_container"> <a href="{{ i.get_absolute_url }}" class="catg1_img"><img alt="" src="{{i.pic.url}}" height="292px" width="150px"></a></div>
+                <h3 class="post_titile"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h3>
               </li>
-              {% endfor %}
-              {% endwith %}
-              {% endif %}
               {% endfor %}
               {% endif %}
             </ul>
