@@ -19,7 +19,7 @@ from django.views.decorators.http import require_POST
 def index(request):
     data=Article.objects.filter(Q(moderated=True)).order_by('-date_created')
     trend=Article.objects.filter(Q(moderated=True)).order_by('-hits')
-    national=Article.objects.filter(Q(moderated=True,category__name="national")).order_by('-date_created')
+    national=Article.objects.filter(Q(moderated=True)).filter(category__name__contains="national").order_by('-date_created')
     return render(request,'index.html',{'data': data,'trend': trend, 'national':national})
 
 def delete(request,pk):
