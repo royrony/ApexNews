@@ -20,6 +20,7 @@ def index(request):
     data=Article.objects.filter(Q(moderated=True)).order_by('-date_created')
     trend=Article.objects.filter(Q(moderated=True)).order_by('-hits')
     national=Article.objects.filter(Q(moderated=True)).filter(category__name__contains="National").order_by('-date_created')
+    print(national)
     return render(request,'index.html',{'data': data,'trend': trend, 'national':national})
 
 def delete(request,pk):
