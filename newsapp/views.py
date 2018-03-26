@@ -20,8 +20,14 @@ def index(request):
     data=Article.objects.filter(Q(moderated=True)).order_by('-date_created')
     trend=Article.objects.filter(Q(moderated=True)).order_by('-hits')
     national=Article.objects.filter(Q(moderated=True)).filter(category__name='National').order_by('-date_created')
-    print(national)
-    return render(request,'index.html',{'data': data,'trend': trend, 'national':national})
+    international=Article.objects.filter(Q(moderated=True)).filter(category__name='Interational').order_by('-date_created')
+    sports=Article.objects.filter(Q(moderated=True)).filter(category__name='Sports').order_by('-date_created')
+    technology=Article.objects.filter(Q(moderated=True)).filter(category__name='Technology').order_by('-date_created')
+    movies=Article.objects.filter(Q(moderated=True)).filter(category__name='Movies').order_by('-date_created')
+    lifestyle=Article.objects.filter(Q(moderated=True)).filter(category__name='Lifestyle').order_by('-date_created')
+    business=Article.objects.filter(Q(moderated=True)).filter(category__name='Business').order_by('-date_created')
+    science=Article.objects.filter(Q(moderated=True)).filter(category__name='Science').order_by('-date_created')
+    return render(request,'index.html',{'data': data,'trend': trend, 'national':national,'international':international,'sports':sports,'technology':technology,'movies':movies,'lifestyle':lifestyle,'business':business,'science':science})
 
 def delete(request,pk):
     article = get_object_or_404(Article, pk=pk)
@@ -183,7 +189,15 @@ def logout(request):
 def article(request):
     data=Article.objects.filter(Q(moderated=True)).order_by('-date_created')
     trend=Article.objects.filter(Q(moderated=True)).order_by('-hits')
-    return render(request,'index.html',{'data': data,'trend': trend})
+    national=Article.objects.filter(Q(moderated=True)).filter(category__name='National').order_by('-date_created')
+    international=Article.objects.filter(Q(moderated=True)).filter(category__name='Interational').order_by('-date_created')
+    sports=Article.objects.filter(Q(moderated=True)).filter(category__name='Sports').order_by('-date_created')
+    technology=Article.objects.filter(Q(moderated=True)).filter(category__name='Technology').order_by('-date_created')
+    movies=Article.objects.filter(Q(moderated=True)).filter(category__name='Movies').order_by('-date_created')
+    lifestyle=Article.objects.filter(Q(moderated=True)).filter(category__name='Lifestyle').order_by('-date_created')
+    business=Article.objects.filter(Q(moderated=True)).filter(category__name='Business').order_by('-date_created')
+    science=Article.objects.filter(Q(moderated=True)).filter(category__name='Science').order_by('-date_created')
+    return render(request,'index.html',{'data': data,'trend': trend, 'national':national,'international':international,'sports':sports,'technology':technology,'movies':movies,'lifestyle':lifestyle,'business':business,'science':science})
     
 
 @login_required()
