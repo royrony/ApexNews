@@ -136,7 +136,7 @@
             {% if data %}
               {% for i in data %}
               {% if i.category.slug == "movies" %}
-            <div class="single_featured_slide"> <a href="{{ i.get_absolute_url }}"><img src="{{i.pic.url}}" height="567px" width="330px" alt=""></a>
+            <div class="single_featured_slide"> <a href="{{ i.get_absolute_url }}"><img src="{{i.pic.url}}" height="400px" width="330px" alt=""></a>
               <h2><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h2>
               <p>{{i.content|truncatewords:30|striptags|safe}}</p>
             </div>
