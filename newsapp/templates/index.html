@@ -119,7 +119,7 @@
               {% for i in data %}
               {% if i.category.slug == "national" %}
               {% with i as mylist %}
-              {% for a in mylist.split}
+              {% for a in mylist.split %}
               <li>
                 <div class="catgimg_container"> <a href="{{ a.get_absolute_url }}" class="catg1_img"><img alt="" src="{{a.pic.url}}" height="292px" width="150px"></a></div>
                 <h3 class="post_titile"><a href="{{ a.get_absolute_url }}">{{a.title}}</a></h3>
