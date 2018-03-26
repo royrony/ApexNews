@@ -116,7 +116,7 @@
             <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a href="#" class="title_text">National</a> </h2>
             <ul class="catg1_nav">
               {% if data %}
-              {% for i in data|slice:":2" %}
+              {% for i in data %}
               {% if i.category.slug == "national" %}
               <li>
                 <div class="catgimg_container"> <a href="{{ i.get_absolute_url }}" class="catg1_img"><img alt="" src="{{i.pic.url}}" height="292px" width="150px"></a></div>
@@ -134,7 +134,7 @@
           <center><h2><a href="#" class="title_text">MOVIES</a> </h2></center>
           <div class="slick_slider2">
             {% if data %}
-              {% for i in data|slice:":4" %}
+              {% for i in data %}
               {% if i.category.slug == "movies" %}
             <div class="single_featured_slide"> <a href="{{ i.get_absolute_url }}"><img src="{{i.pic.url}}" height="567px" width="330px" alt=""></a>
               <h2><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h2>
@@ -152,7 +152,7 @@
             <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a href="#" class="title_text">International</a> </h2>
             <ul class="catg1_nav">
               {% if data %}
-              {% for i in data|slice:":4" %}
+              {% for i in data %}
               {% if i.category.slug == "interational" %}
               <li>
                 <div class="catgimg_container"> <a href="{{ i.get_absolute_url }}" class="catg1_img"><img alt="" src="{{i.pic.url}}" height="292px" width="150px"></a></div>
@@ -174,7 +174,7 @@
             <div class="business_category_left wow fadeInDown">
               <ul class="fashion_catgnav">
                 {% if data %}
-              {% for i in data|slice:":1" %}
+              {% for i in data %}
               {% if i.category.slug == "business" %}
                 <li>
                   <div class="catgimg2_container"> <a href="{{ i.get_absolute_url }}"><img alt="" src="{{i.pic.url}}" height="390px" width="240px"></a> </div>
@@ -190,7 +190,7 @@
             <div class="business_category_right wow fadeInDown">
               <ul class="small_catg">
                 {% if data %}
-              {% for i in data|slice:"1:" %}
+              {% for i in data %}
               {% if i.category.slug == "business" %}
                 <li>
                   <div class="media wow fadeInDown"> <a class="media-left" href="{{ i.get_absolute_url }}"><img <img src="{{i.pic.url}}" height="390px" width="240px"</a>
@@ -212,7 +212,7 @@
                 <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a class="title_text" href="#">Sports</a> </h2>
                 <ul class="fashion_catgnav wow fadeInDown">
                   {% if data %}
-              {% for i in data|slice:":1" %}
+              {% for i in data %}
               {% if i.category.slug == "sports" %}
                   <li>
                     <div class="catgimg2_container"> <a href="{{ i.get_absolute_url }}"><img alt="" src="{{i.pic.url}}" height="390px" width="240px"></a> </div>
@@ -226,7 +226,7 @@
                 </ul>
                 <ul class="small_catg wow fadeInDown">
                   {% if data %}
-              {% for i in data|slice:"1:" %}
+              {% for i in data %}
               {% if i.category.slug == "sports" %}
                   <li>
                     <div class="media"> <a class="media-left" href="#"><img <img src="{{i.pic.url}}" height="390px" width="240px"</a>
@@ -248,7 +248,7 @@
                   <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a class="title_text" href="#">Lifestyle</a> </h2>
                   <ul class="fashion_catgnav wow fadeInDown">
                     {% if data %}
-              {% for i in data|slice:":1" %}
+              {% for i in data %}
               {% if i.category.slug == "lifestyle" %}
                     <li>
                       <div class="catgimg2_container"> <a href="#"><img alt="" src="{{i.pic.url}}" height="390px" width="240px"></a> </div>
@@ -262,7 +262,7 @@
                   </ul>
                   <ul class="small_catg wow fadeInDown">
                     {% if data %}
-              {% for i in data|slice:"1:" %}
+              {% for i in data %}
               {% if i.category.slug == "lifestyle" %}
                     <li>
                       <div class="media wow fadeInDown"> <a class="media-left" href="#"><img src="{{i.pic.url}}" height="390px" width="240px"</a>
@@ -286,7 +286,7 @@
               <div class="business_category_left">
                 <ul class="fashion_catgnav wow fadeInDown">
                   {% if data %}
-              {% for i in data|slice:":1" %}
+              {% for i in data %}
               {% if i.category.slug == "technology" %}
                   <li>
                     <div class="catgimg2_container"> <a href="#"><img alt="" src="{{i.pic.url}}" height="390px" width="240px"></a> </div>
@@ -302,7 +302,7 @@
               <div class="business_category_right">
                 <ul class="small_catg wow fadeInDown">
                   {% if data %}
-              {% for i in data|slice:"1:" %}
+              {% for i in data %}
               {% if i.category.slug == "technology" %}
                   <li>
                     <div class="media wow fadeInDown"> <a class="media-left" href="#"><img src="{{i.pic.url}}" height="390px" width="240px"</a>
