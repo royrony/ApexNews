@@ -153,7 +153,7 @@
             <ul class="catg1_nav">
               {% if data %}
               {% for i in data %}
-              {% if i.category.slug == "interational" %}
+              {% if i.category.slug == "international" %}
               <li>
                 <div class="catgimg_container"> <a href="{{ i.get_absolute_url }}" class="catg1_img"><img alt="" src="{{i.pic.url}}" height="292px" width="150px"></a></div>
                 <h3 class="post_titile"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h3>
