@@ -18,7 +18,8 @@ from django.views.decorators.http import require_POST
 
 def index(request):
     data=Article.objects.filter(Q(moderated=True)).order_by('-date_created')
-    return render(request,'index.html',{'data': data})
+    trend=Article.objects.filter(Q(moderated=True)).order_by('-hits')
+    return render(request,'index.html',{'data': data,'trend': trend})
 
 def delete(request,pk):
     article = get_object_or_404(Article, pk=pk)
@@ -179,7 +180,8 @@ def logout(request):
     
 def article(request):
     data=Article.objects.filter(Q(moderated=True)).order_by('-date_created')
-    return render(request,'index.html',{'data': data})
+    trend=Article.objects.filter(Q(moderated=True)).order_by('-hits')
+    return render(request,'index.html',{'data': data,'trend': trend})
     
 
 @login_required()
