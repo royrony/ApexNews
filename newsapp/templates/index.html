@@ -182,7 +182,7 @@
             <div class="business_category_right wow fadeInDown">
               <ul class="small_catg">
                 {% if business %}
-              {% for i in national|slice:"2:4" %}
+              {% for i in business|slice:"2:4" %}
                 <li>
                   <div class="media wow fadeInDown"> <a class="media-left" href="{{ i.get_absolute_url }}"><img src="{{i.pic.url}}" height="390px" width="240px"></a>
                     <div class="media-body">
