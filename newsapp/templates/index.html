@@ -218,12 +218,10 @@
                   {% if sports %}
               {% for i in sports|slice:"1:4" %}
                   <li>
-                    <div class="media"> <a class="media-left" href="#"><img src="{{i.pic.url}}" height="390px" width="240px"></a>
-                      <div class="media-body">
-                        <h4 class="media-heading"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h4>
-                        <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="#">No Comments</a></span> </div>
-                      </div>
-                    </div>
+                    <div class="catgimg2_container"> <a href="{{ i.get_absolute_url }}"><img alt="" src="{{i.pic.url}}" height="390px" width="240px"></a> </div>
+                    <h2 class="catg_titile"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h2>
+                    <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="#">No Comments</a></span> <span class="meta_more"><a  href="{{ i.get_absolute_url }}">Read More...</a></span> </div>
+                    <p>{{i.content|truncatewords:30|striptags|safe}}</p>
                   </li>
               {% endfor %}
               {% endif %}
