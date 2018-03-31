@@ -98,8 +98,10 @@
         <div class="col-lg-6 col-md-6 col-sm-6">
           <div class="content_top_right">
             <ul class="featured_nav wow fadeInDown">
+              <div class="single_category wow fadeInDown">
+            <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a href="#" class="title_text">Just Now</a> </h2>
+          </div>
               {% if data %}
-              <center><b><h1>Just Now</h1></b></center>
               {% for i in data|slice:":4" %}
               <li><img src="{{i.pic.url}}" height="300px" width="215px">
                 <div class="title_caption"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></div>
