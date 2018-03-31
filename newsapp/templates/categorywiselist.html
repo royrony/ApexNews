@@ -11,18 +11,17 @@
               <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <span class="title_text">Latest Updates</span> </h2>
               {% if articles %}
               {% for i in articles %}
-              {% if i.moderated is True %}
               <div class="business_category_left wow fadeInDown">
                 <ul class="fashion_catgnav">
                   <li>
                     <div class="catgimg2_container"> <a href="{{ i.get_absolute_url }}"><img alt="" src="{{i.pic.url}}"></a> </div>
                     <h2 class="catg_titile"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h2>
                     <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="#">No Comments</a></span> <span class="meta_more"><a  href="{{ i.get_absolute_url }}">Read More...</a></span> </div>
+                    <br>
                     <p>{{i.content|truncatewords:30|striptags|safe}}</p>
                   </li>
                 </ul>
               </div>
-              {% endif %} 
               {% endfor %}
               {% endif %}
           </div>
