@@ -233,32 +233,32 @@
             <div class="fashion_category">
               <div class="single_category">
                 <div class="single_category wow fadeInDown">
-                  <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a class="title_text" href="#">Fashion</a> </h2>
+                  <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a class="title_text" href="#">Lifestyle</a> </h2>
                   <ul class="fashion_catgnav wow fadeInDown">
+                    {% if lifestyle %}
+              {% for i in lifestyle|slice:":1" %}
                     <li>
-                      <div class="catgimg2_container"> <a href="#"><img alt="" src="images/390x240x1.jpg"></a> </div>
-                      <h2 class="catg_titile"><a href="#">Aenean mollis metus sit amet ligula adipiscing</a></h2>
-                      <div class="comments_box"> <span class="meta_date">14/12/2045</span> <span class="meta_comment"><a href="#">No Comments</a></span> <span class="meta_more"><a  href="#">Read More...</a></span> </div>
-                      <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla...</p>
+                      <div class="catgimg2_container"> <a href="{{ i.get_absolute_url }}"><img alt="" src="{{i.pic.url}}" height="390px" width="240px"></a> </div>
+                      <h2 class="catg_titile"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h2>
+                      <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="#">No Comments</a></span> <span class="meta_more"><a  href="{{ i.get_absolute_url }}">Read More...</a></span> </div>
+                      <p>{{i.content|truncatewords:30|striptags|safe}}</p>
                     </li>
+                    {% endfor %}
+              {% endif %}
                   </ul>
                   <ul class="small_catg wow fadeInDown">
+                    {% if lifestyle %}
+              {% for i in lifestyle|slice:"1:4" %}
                     <li>
-                      <div class="media wow fadeInDown"> <a class="media-left" href="#"><img src="images/112x112.jpg" alt=""></a>
+                      <div class="media wow fadeInDown"> <a class="media-left" href="{{ i.get_absolute_url }}"><img src="{{i.pic.url}}" height="390px" width="240px" alt=""></a>
                         <div class="media-body">
-                          <h4 class="media-heading"><a href="#">Duis condimentum nunc pretium lobortis </a></h4>
-                          <div class="comments_box"> <span class="meta_date">14/12/2045</span> <span class="meta_comment"><a href="#">No Comments</a></span> </div>
+                          <h4 class="media-heading"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h4>
+                          <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="#">No Comments</a></span> </div>
                         </div>
                       </div>
                     </li>
-                    <li>
-                      <div class="media wow fadeInDown"> <a class="media-left" href="#"><img src="images/112x112.jpg" alt=""></a>
-                        <div class="media-body">
-                          <h4 class="media-heading"><a href="#">Duis condimentum nunc pretium lobortis </a></h4>
-                          <div class="comments_box"> <span class="meta_date">14/12/2045</span> <span class="meta_comment"><a href="#">No Comments</a></span> </div>
-                        </div>
-                      </div>
-                    </li>
+                    {% endfor %}
+              {% endif %}
                   </ul>
                 </div>
               </div>
