@@ -85,13 +85,13 @@
               {% if data %}
               <div class="single_category wow fadeInDown">
             <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a href="#" class="title_text">Trending</a> </h2>
-          </div>
               {% for i in trend|slice:":4" %}
               <div class="single_iteam"><img src="{{i.pic.url}}" height="550px" width="330px">
                 <h2><a class="slider_tittle" href="{{ i.get_absolute_url }}">{{i.title}}</a></h2>
               </div>
               {% endfor %}
               {% endif %}
+              </div>
             </div>
           </div>
         </div>
