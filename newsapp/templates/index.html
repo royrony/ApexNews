@@ -230,38 +230,40 @@
                 </ul>
               </div>
             </div>
-            <div class="games_fashion_area">
-            <div class="games_category">
+            <div class="fashion_category">
               <div class="single_category">
-                <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a class="title_text" href="#">Sports</a> </h2>
-                <ul class="fashion_catgnav wow fadeInDown">
-                  {% if lifestyle %}
+                <div class="single_category wow fadeInDown">
+                  <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a class="title_text" href="#">Lifestyle</a> </h2>
+                  <ul class="fashion_catgnav wow fadeInDown">
+                    {% if lifestyle %}
               {% for i in lifestyle|slice:":1" %}
-                  <li>
-                    <div class="catgimg2_container"> <a href="{{ i.get_absolute_url }}"><img alt="" src="{{i.pic.url}}" height="390px" width="240px"></a> </div>
-                    <h2 class="catg_titile"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h2>
-                    <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="#">No Comments</a></span> <span class="meta_more"><a  href="{{ i.get_absolute_url }}">Read More...</a></span> </div>
-                    <p>{{i.content|truncatewords:30|striptags|safe}}</p>
-                  </li>
-              {% endfor %}
+                    <li>
+                      <div class="catgimg2_container"> <a href="{{ i.get_absolute_url }}"><img alt="" src="{{i.pic.url}}" height="390px" width="240px"></a> </div>
+                      <h2 class="catg_titile"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h2>
+                      <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="#">No Comments</a></span> <span class="meta_more"><a  href="{{ i.get_absolute_url }}">Read More...</a></span> </div>
+                      <p>{{i.content|truncatewords:30|striptags|safe}}</p>
+                    </li>
+                    {% endfor %}
               {% endif %}
-                </ul>
-                <ul class="small_catg wow fadeInDown">
-                  {% if lifestyle %}
+                  </ul>
+                  <ul class="small_catg wow fadeInDown">
+                    {% if lifestyle %}
               {% for i in lifestyle|slice:"1:4" %}
-                  <li>
-                    <div class="media"> <a class="media-left" href="#"><img src="{{i.pic.url}}" height="390px" width="240px"></a>
-                      <div class="media-body">
-                        <h4 class="media-heading"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h4>
-                        <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="#">No Comments</a></span> </div>
+                    <li>
+                      <div class="media wow fadeInDown"> <a class="media-left" href="{{ i.get_absolute_url }}"><img src="{{i.pic.url}}" height="390px" width="240px" alt=""></a>
+                        <div class="media-body">
+                          <h4 class="media-heading"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h4>
+                          <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="#">No Comments</a></span> </div>
+                        </div>
                       </div>
-                    </div>
-                  </li>
-              {% endfor %}
+                    </li>
+                    {% endfor %}
               {% endif %}
-                </ul>
+                  </ul>
+                </div>
               </div>
             </div>
+          </div>
           <div class="technology_catrarea">
             <div class="single_category">
               <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a class="title_text" href="#">Technology</a> </h2>
