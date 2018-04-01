@@ -39,7 +39,7 @@ def search(request):
         squery=request.POST['search_box']
         if squery:
             data=Article.objects.filter(Q(title__icontains=squery)|Q(content__icontains=squery)|Q(user__username__exact=squery))#i=ignorecase and Q means query
-            paginator = Paginator(data, 3) # 3 articles in each page
+            paginator = Paginator(data, 5) # 3 articles in each page
             page = request.GET.get('page')
             try:
                 articles = paginator.page(page)
@@ -50,11 +50,11 @@ def search(request):
                 # If page is out of range deliver last page of results
                 articles = paginator.page(paginator.num_pages)
             if data:
-                return render(request,'allposts.html',{'page': page,'articles': articles})
+                return render(request,'search.html',{'page': page,'articles': articles})
             else:
-                return render(request,'allposts.html',{'msg':'No Matching Search Result'})
+                return render(request,'search.html',{'msg':'No Matching Search Result'})
         else:
-            return HttpResponseRedirect('/article/')
+            return HttpResponseRedirect('/')
 
 def detail(request,category,slug):
     article = get_object_or_404(Article,slug=slug)
