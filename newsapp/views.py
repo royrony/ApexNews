@@ -54,7 +54,7 @@ def search(request):
             else:
                 return render(request,'search.html',{'msg':'No Matching Search Result'})
         else:
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/index/')
 
 def detail(request,category,slug):
     article = get_object_or_404(Article,slug=slug)
