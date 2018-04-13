@@ -142,7 +142,7 @@ span.meta_more:before{content:" "; font-family:FontAwesome; font-style:normal
 .blog_archive{display:inline; float:left; width:100%; margin-bottom:15px}
 .blog_archive select{background-color:#fff; border:medium none; height:50px; padding:10px; width:100%}
 .blog_archive select option{cursor:pointer; padding:10px 5px}
-#footer{float:left; display:inline; width:100%; border-top:10px solid #798992; margin-top:30px;bottom: 0}
+#footer{float:left; display:inline; width:100%; border-top:10px solid #798992; margin-top:30px;bottom: 0px}
 .footer_top{background-color:#434c51; display:inline; float:left; padding:15px 0; width:100%}
 .single_footer_top{float:left; display:inline; width:100%}
 .single_footer_top > h2{ font-size:18px; margin:0 0 10px; padding:6px 0; text-transform:uppercase}
