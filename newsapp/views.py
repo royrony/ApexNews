@@ -20,7 +20,7 @@ def index(request):
     data=Article.objects.filter(Q(moderated=True)).order_by('-date_created')
     trend=Article.objects.filter(Q(moderated=True)).order_by('-hits')
     national=Article.objects.filter(Q(moderated=True)).filter(category__name='National').order_by('-date_created')
-    international=Article.objects.filter(Q(moderated=True)).filter(category__name='Interational').order_by('-date_created')
+    international=Article.objects.filter(Q(moderated=True)).filter(category__name='International').order_by('-date_created')
     sports=Article.objects.filter(Q(moderated=True)).filter(category__name='Sports').order_by('-date_created')
     technology=Article.objects.filter(Q(moderated=True)).filter(category__name='Technology').order_by('-date_created')
     movies=Article.objects.filter(Q(moderated=True)).filter(category__name='Movies').order_by('-date_created')
