@@ -33,7 +33,7 @@ urlpatterns = [
     url(r'^$',index,name='index'),
     url(r'^news/new/$',article_new, name='article_new'),
     url(r'^delete/(\d+)/$',delete,name='delete'),
-    url(r'^search/$',search),
+    url(r'^search/$',search,name='search'),
     url(r'^(?P<category>[^\.]+)/(?P<slug>[^\.]+).html',detail,name='detail'),
     url(r'^edit/(\d+)/$',edit,name='edit'),
     url(r'^register/$',register,name='register'),

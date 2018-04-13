@@ -35,7 +35,7 @@
             </ul>
           </div>
           <div class="header_top_right">
-            <form role="search" class="search_form" action='/search/' >
+            <form role="search" class="search_form" action='/search/' method="Post">
               {% csrf_token %}
               <input type="text" placeholder="Text to Search" name="search_box" value="">
               <input type="submit" value="">
