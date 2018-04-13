@@ -10,7 +10,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 @font-face{ font-family:'Oswald'; font-style:normal; font-weight:400; src:local('Oswald Regular'),local('Oswald-Regular'),url("../fonts/Oswald-Regular-400.woff") format('woff')}
-body{background-color:#fff; color:#333; overflow-x:hidden !important}
+body{background-color:#fff; color:#333; overflow-x:hidden !important; position:relative;min-height: 100%}
 ul{padding:0; margin:0; list-style:none}
 a{text-decoration:none; color:#798992}
 a:hover{color:#646464; text-decoration:none}
@@ -142,7 +142,7 @@ span.meta_more:before{content:" "; font-family:FontAwesome; font-style:normal
 .blog_archive{display:inline; float:left; width:100%; margin-bottom:15px}
 .blog_archive select{background-color:#fff; border:medium none; height:50px; padding:10px; width:100%}
 .blog_archive select option{cursor:pointer; padding:10px 5px}
-#footer{float:left; display:inline; width:100%; border-top:10px solid #798992; margin-top:30px;bottom: 0px}
+#footer{float:left; display:inline; width:100%; border-top:10px solid #798992;bottom: 0; margin-top:30px}
 .footer_top{background-color:#434c51; display:inline; float:left; padding:15px 0; width:100%}
 .single_footer_top{float:left; display:inline; width:100%}
 .single_footer_top > h2{ font-size:18px; margin:0 0 10px; padding:6px 0; text-transform:uppercase}
