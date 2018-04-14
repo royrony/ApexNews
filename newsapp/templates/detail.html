@@ -100,7 +100,7 @@
         </div>
         {% load social_share %}
         <div class="share_post"> <a class="facebook" href="{% post_to_facebook object_or_url %}"><i class="fa fa-facebook"></i>Facebook</a> <a class="googleplus" href="{% post_to_gplus object_or_url %}"><i class="fa fa-google-plus"></i>Google+</a> <a class="linkedin" href="{% post_to_linkedin object_or_url %}"><i class="fa fa-linkedin"></i>LinkedIn</a> <a class="twitter" href="{% post_to_twitter "{{Article.title}} - Check it out!
-        {% url 'list_of_news_by_category' article.category.slug %} object_or_url %}"><i class="fa fa-twitter"></i>Twitter</a> <a class="reddit" href="{% post_to_reddit object_or_url %}"><i class="fa fa-reddit"></i>Reddit</a> </div>
+        {% url 'list_of_news_by_category' article.category.slug %}" object_or_url %}"><i class="fa fa-twitter"></i>Twitter</a> <a class="reddit" href="{% post_to_reddit object_or_url %}"><i class="fa fa-reddit"></i>Reddit</a> </div>
         {% if similar_posts %}
         {% for i in similar_posts %}
         <div class="similar_post">
