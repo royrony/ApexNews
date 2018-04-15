@@ -19,11 +19,11 @@
             {% endblock %} 
     </head>
     <body>
-    	<div id="preloader">
+   <div id="preloader">
   <div id="status">&nbsp;</div>
 </div>
 <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
-<div class="container" style="position:relative;min-height: 100%;">
+<div class="container">
   <header id="header">
     <div class="row">
       <div class="col-lg-12 col-md-12">
@@ -37,15 +37,15 @@
             </ul>
           </div>
           <div class="header_top_right">
-            <form action="#" class="search_form">
-              <input type="text" placeholder="Text to Search">
+            <form role="search" class="search_form" action='/search/' method="Post">
+              {% csrf_token %}
+              <input type="text" placeholder="Text to Search" name="search_box" value="">
               <input type="submit" value="">
             </form>
           </div>
         </div>
         <div class="header_bottom">
-          <div class="header_bottom_left"><a class="logo" href="#">ApeX<strong>News</strong> <span>Personalized News Feed</span></a></div>
-          <div class="header_bottom_right"><a href="#"><img src="/static/images/addbanner_728x90_V1.jpg" alt=""></a></div>
+          <div class="header_bottom_left"><a class="logo" href="/">ApeX<strong>News</strong> <span>Personalized News Feed</span></a></div>
         </div>
       </div>
     </div>
@@ -59,17 +59,20 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav custom_nav">
             <li class=""><a href="/">Home</a></li>
-            <li class="dropdown"> <a href="#" class="" data-toggle="dropdown" role="button" aria-expanded="false">Archives</a>
+            <li class="dropdown"> <a href="#" class="" data-toggle="dropdown" role="button" aria-expanded="false">News</a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="/static/pages/archive-main.html">Archive</a></li>
-                <li><a href="/static/pages/archive1.html">Archive 1</a></li>
-                <li><a href="/static/pages/archive2.html">Archive 2</a></li>
-                <li><a href="/static/pages/archive3.html">Archive 3</a></li>
+                <li><a href="{% url 'list_of_news_by_category' 'national' %}">National</a></li>
+                <li><a href="{% url 'list_of_news_by_category' 'international' %}">International</a></li>
+                <li><a href="{% url 'list_of_news_by_category' 'states' %}">States</a></li>
+                <li><a href="{% url 'list_of_news_by_category' 'cities' %}">Cities</a></li>
               </ul>
             </li>
-            <li><a href="/static/pages/single.html">Single page</a></li>
-            <li><a href="/static/pages/contact.html">Contact</a></li>
-            <li><a href="/static/pages/404.html">404 page</a></li>
+            <li><a href="{% url 'list_of_news_by_category' 'business' %}">Business</a></li>
+            <li><a href="{% url 'list_of_news_by_category' 'sport' %}">Sport</a></li>
+            <li><a href="{% url 'list_of_news_by_category' 'science' %}">Science</a></li>
+            <li><a href="{% url 'list_of_news_by_category' 'technology' %}">Technology</a></li>
+            <li><a href="{% url 'list_of_news_by_category' 'entertainment' %}">Entertainment</a></li>
+            <li><a href="{% url 'list_of_news_by_category' 'lifestyle' %}">Lifestyle</a></li>
           </ul>
         </div>
       </div>
