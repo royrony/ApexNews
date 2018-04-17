@@ -79,7 +79,7 @@ def search(request):
         if squery:
             request.session['var']=squery
             data=Article.objects.filter(Q(title__icontains=squery)|Q(content__icontains=squery)|Q(user__username__exact=squery))#i=ignorecase and Q means query
-            paginator = Paginator(data, 5) # 3 articles in each page
+            paginator = Paginator(data, 6) # 3 articles in each page
             page = request.GET.get('page')
             try:
                 articles = paginator.page(page)
