@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import *
 from .forms import *
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 # Register your models here.
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('name', 'article', 'created', 'active')
@@ -14,8 +14,20 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'content', 'date_created', 'moderated')
     list_filter = ('moderated', 'date_created')
     search_fields = ('title', 'content')  
+
+class StaffAdmin(admin.ModelAdmin):
+	list_display = ('user', 'verified')
+
+class AudienceAdmin(admin.ModelAdmin):
+	list_display = ('user', 'get_interests')
+	
+	def get_interests(self, obj):
+		return "\n".join([p.interests for p in obj.interests.all()])
+
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Profile)
 admin.site.register(Category)
+admin.site.register(Staff, StaffAdmin)
+admin.site.register(Audience, AudienceAdmin)
 

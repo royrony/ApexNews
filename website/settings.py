@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,10 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sites',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'taggit',
     'ckeditor',
     'ckeditor_uploader',
     'django_social_share',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -76,7 +79,7 @@ TEMPLATES = [
 
 
 WSGI_APPLICATION = 'website.wsgi.application'
-
+AUTH_USER_MODEL = 'newsapp.User'
 AUTH_PROFILE_MODULE= 'profiles.Profile'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
@@ -144,8 +147,11 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 SESSION_IDLE_TIMEOUT=1*60
 SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 SESSION_COOKIE_AGE=60*60*24*30   #DEFAULT IS 2 WEEKS IN SECONDS
-LOGIN_REDIRECT_URL='/'
-LOGIN_URL='/login/'
+LOGIN_REDIRECT_URL='loggedin'
+LOGIN_URL='login'
+LOGOUT_URL='logout'
+
+LOGOUT_REDIRECT_URL = '/'
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_CONFIGS = {
     'default': {
@@ -159,3 +165,12 @@ CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
 CKEDITOR_JQUERY_URL = '/static/js/jquery.min.js'
 CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_BROWSE_SHOW_DIRS = True
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-secondary',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}

@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
 import datetime
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from taggit.managers import TaggableManager
 from django.conf import settings
@@ -11,6 +11,9 @@ from django.contrib.contenttypes.fields import GenericRelation
 from autoslug import AutoSlugField
 
 # Create your models here.
+class User(AbstractUser):
+    is_audience = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -83,3 +86,12 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment by {} on {}'.format(self.name, self.article)
+
+
+class Audience(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    interests = models.ManyToManyField(Category, related_name='interested_audiences')
+
+class Staff(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    verified = models.BooleanField(default=False)

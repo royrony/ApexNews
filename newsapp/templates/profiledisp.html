@@ -4,6 +4,16 @@
 {% endblock %}
 
 {% block content %}
+<div class="card-body">
+	{% for message in messages %}
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+  	{{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>   
+  </div>
+{% endfor %}
+</div>
     <div class="content_bottom">
       <div class="col-lg-8  col-md-8">
         <div class="content_bottom">
@@ -11,13 +21,11 @@
             <ol class="breadcrumb">
               <li><a href="#">Home</a></li>
               <li><a href="#">Profile</a></li>
-              <li class="active">{{request.user}}</li>
+              <li class="active" style="text-transform: capitalize;">{{request.user}}</li>
             </ol>
         </div>
     </div>
 </div>
-</div>
-</section>
 </div>
 <div class="container">
     <div class="row profile">
@@ -33,10 +41,10 @@
 				<!-- SIDEBAR USER TITLE -->
 				<div class="profile-usertitle">
 					<div class="profile-usertitle-name">
-					<center><h3>{{request.user}}</h3></center>	
+					<center><h3 style="text-transform: capitalize;">{{request.user}}</h3></center>	
 					</div>
 					<div class="profile-usertitle-job">
-					<center><p>Developer</p></center>	
+					<center><p>{{request.user.profile.bio}}</p></center>	
 					</div>
 				</div>
 				<!-- END SIDEBAR USER TITLE -->
@@ -59,9 +67,9 @@
 							Articles Written </a>
 						</li>
 						<li>
-							<a href="#">
-							<i class="glyphicon glyphicon-flag"></i>
-							Help </a>
+							<a href="/news/new/">
+							<i class="glyphicon glyphicon-pencil"></i>
+							Write Article </a>
 						</li>
 					</ul>
 				</div>

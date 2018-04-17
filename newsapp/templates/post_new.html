@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block head %}
+<title> Create New Post </title>
+{% endblock %}
+{% block content %}
+<div style="margin-bottom: 30px;">
+<center><h1><b><u>New Article</u></b></h1></center><br>
+    
+<form method="POST" class="form-horizontal" enctype="multipart/form-data"> 
+	{% csrf_token %}
+<fieldset>
+
+<!-- Form Name -->
+
+<!-- Text input-->
+<div class="form-group">
+  <div class="col-md-4">
+  {{form.title|as_crispy_field}}
+  </div>
+</div>
+
+<!-- Select Basic -->
+<div class="form-group">
+  <div class="col-md-4">
+    {{form.category|as_crispy_field}}
+  </div>
+</div>
+
+<!-- Textarea -->
+<div class="form-group">
+  <div class="col-md-4">                     
+    {{form.content|as_crispy_field}}
+  </div>
+</div>
+
+<!-- File Button --> 
+<div class="form-group">
+  <div class="col-md-4">
+    {{form.pic|as_crispy_field}}
+  </div>
+</div>
+
+
+
+<!-- Text input-->
+<div class="form-group">
+  <div class="col-md-4">
+  {{form.tags|as_crispy_field}}
+  </div>
+</div>
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="singlebutton"></label>
+  <div class="col-md-4">
+    <button id="singlebutton" name="singlebutton" class="btn btn-info">Submit</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+ </div>
+ {% load static %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+{% endblock %}

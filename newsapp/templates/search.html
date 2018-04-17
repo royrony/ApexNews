@@ -34,6 +34,6 @@
 </div>
 </div>
 {% if articles %}
-<h4 style="margin-left: 33%;color: white;">{% include "pagination.html" with page=articles %}</h4>
+{% include "pagination.html" with page=articles  %}
 {% endif %}
 {% endblock %}

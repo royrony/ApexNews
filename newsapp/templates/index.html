@@ -21,7 +21,7 @@
   <div id="status">&nbsp;</div>
 </div>
 <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
-<div class="container">
+<div class="container" style="min-height: 100%;">
   <header id="header">
     <div class="row">
       <div class="col-lg-12 col-md-12">
@@ -31,7 +31,8 @@
               <li><a href="/">Home</a></li>
               <li><a href="/static/pages/page.html">About</a></li>
               <li><a href="/static/pages/contact.html">Contact</a></li>
-              <li><a href="/static/pages/404.html">Error Page</a></li>
+              <li><a href="{% url 'login' %}">Login</a></li>
+              <li><a href="{% url 'signup' %}">Signup</a></li>
             </ul>
           </div>
           <div class="header_top_right">
@@ -81,7 +82,7 @@
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm6">
           <div class="single_category wow fadeInDown">
-            <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a href="#" class="title_text">Trending</a> </h2>
+            <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a class="title_text">Trending</a> </h2>
           </div>
           <div class="latest_slider">
             <div class="slick_slider">
@@ -99,7 +100,7 @@
           <div class="content_top_right">
             <ul class="featured_nav wow fadeInDown">
               <div class="single_category wow fadeInDown">
-            <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a href="#" class="title_text">Just Now</a> </h2>
+            <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a class="title_text">Just Now</a> </h2>
           </div>
               {% if data %}
               {% for i in data|slice:":4" %}
@@ -117,7 +118,7 @@
       <div class="col-lg-3 col-md-3 col-sm-3">
         <div class="content_middle_leftbar">
           <div class="single_category wow fadeInDown">
-            <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a href="#" class="title_text">National</a> </h2>
+            <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a href="{% url 'list_of_news_by_category' 'national' %}" class="title_text">National</a> </h2>
             <ul class="catg1_nav">
               {% if national %}
               {% for i in national|slice:":4" %}
@@ -133,8 +134,8 @@
       </div>
       <div class="col-lg-5 col-md-6 col-sm-6">
         <div class="content_middle_middle">
-          <div class="single_category wow fadeInDown">
-          <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a href="#" class="title_text">Movies</a> </h2>
+          <div class="single_category wow fadeInDown" style="margin-top: -15px;">
+          <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a href="{% url 'list_of_news_by_category' 'movies' %}" class="title_text">Movies</a> </h2>
           <div class="slick_slider2">
             {% if movies %}
               {% for i in movies|slice:":4" %}
@@ -151,7 +152,7 @@
       <div class="col-lg-3 col-md-3 col-sm-3">
         <div class="content_middle_rightbar">
           <div class="single_category wow fadeInDown">
-            <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a href="#" class="title_text">International</a> </h2>
+            <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a href="{% url 'list_of_news_by_category' 'international' %}" class="title_text">International</a> </h2>
             <ul class="catg1_nav">
               {% if international %}
               {% for i in international|slice:":2" %}
@@ -170,7 +171,7 @@
       <div class="col-lg-8 col-md-8">
         <div class="content_bottom_left">
           <div class="single_category wow fadeInDown">
-            <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a class="title_text" href="#">Business</a> </h2>
+            <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a class="title_text" href="{% url 'list_of_news_by_category' 'business' %}">Business</a> </h2>
             <div class="business_category_left wow fadeInDown">
               <ul class="fashion_catgnav">
                 {% if business %}
@@ -178,7 +179,9 @@
                 <li>
                   <div class="catgimg2_container"> <a href="{{ i.get_absolute_url }}"><img alt="" src="{{i.pic.url}}" height="390px" width="240px"></a> </div>
                   <h2 class="catg_titile"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h2>
-                  <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="#">No Comments</a></span> <span class="meta_more"><a  href="{{ i.get_absolute_url }}">Read More...</a></span> </div>
+                  {% with i.comments.count as total_comments %}
+                  <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="{{ i.get_absolute_url }}">{{ total_comments }} comment{{ total_comments|pluralize }}</a></span> <span class="meta_more"><a  href="{{ i.get_absolute_url }}">Read More...</a></span> </div>
+                  {% endwith %}
                   <p>{{i.content|truncatewords:30|striptags|safe}}</p>
                 </li>
               {% endfor %}
@@ -193,7 +196,9 @@
                   <div class="media wow fadeInDown"> <a class="media-left" href="{{ i.get_absolute_url }}"><img src="{{i.pic.url}}" height="390px" width="240px"></a>
                     <div class="media-body">
                       <h4 class="media-heading"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h4>
-                      <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="#">No Comments</a></span> </div>
+                      {% with i.comments.count as total_comments %}
+                        <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="{{ i.get_absolute_url }}">{{ total_comments }} comment{{ total_comments|pluralize }}</a></span> </div>
+                        {% endwith %}
                     </div>
                   </div>
                 </li>
@@ -205,14 +210,16 @@
           <div class="games_fashion_area">
             <div class="games_category">
               <div class="single_category">
-                <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a class="title_text" href="#">Sports</a> </h2>
+                <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a class="title_text" href="{% url 'list_of_news_by_category' 'sports' %}">Sports</a> </h2>
                 <ul class="fashion_catgnav wow fadeInDown">
                   {% if sports %}
               {% for i in sports|slice:":1" %}
                   <li>
                     <div class="catgimg2_container"> <a href="{{ i.get_absolute_url }}"><img alt="" src="{{i.pic.url}}" height="390px" width="240px"></a> </div>
                     <h2 class="catg_titile"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h2>
-                    <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="#">No Comments</a></span> <span class="meta_more"><a  href="{{ i.get_absolute_url }}">Read More...</a></span> </div>
+                    {% with i.comments.count as total_comments %}
+                  <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="{{ i.get_absolute_url }}">{{ total_comments }} comment{{ total_comments|pluralize }}</a></span> <span class="meta_more"><a  href="{{ i.get_absolute_url }}">Read More...</a></span> </div>
+                  {% endwith %}
                     <p>{{i.content|truncatewords:30|striptags|safe}}</p>
                   </li>
               {% endfor %}
@@ -222,10 +229,12 @@
                   {% if sports %}
               {% for i in sports|slice:"1:4" %}
                   <li>
-                    <div class="media"> <a class="media-left" href="#"><img src="{{i.pic.url}}" height="390px" width="240px"></a>
+                    <div class="media"> <a class="media-left" href="{{ i.get_absolute_url }}"><img src="{{i.pic.url}}" height="390px" width="240px"></a>
                       <div class="media-body">
                         <h4 class="media-heading"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h4>
-                        <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="#">No Comments</a></span> </div>
+                        {% with i.comments.count as total_comments %}
+                        <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="{{ i.get_absolute_url }}">{{ total_comments }} comment{{ total_comments|pluralize }}</a></span> </div>
+                        {% endwith %}
                       </div>
                     </div>
                   </li>
@@ -237,14 +246,16 @@
             <div class="fashion_category">
               <div class="single_category">
                 <div class="single_category wow fadeInDown">
-                  <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a class="title_text" href="#">Lifestyle</a> </h2>
+                  <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a class="title_text" href="{% url 'list_of_news_by_category' 'lifestyle' %}">Lifestyle</a> </h2>
                   <ul class="fashion_catgnav wow fadeInDown">
                     {% if lifestyle %}
               {% for i in lifestyle|slice:":1" %}
                     <li>
                       <div class="catgimg2_container"> <a href="{{ i.get_absolute_url }}"><img alt="" src="{{i.pic.url}}" height="390px" width="240px"></a> </div>
                       <h2 class="catg_titile"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h2>
-                      <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="#">No Comments</a></span> <span class="meta_more"><a  href="{{ i.get_absolute_url }}">Read More...</a></span> </div>
+                      {% with i.comments.count as total_comments %}
+                  <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="{{ i.get_absolute_url }}">{{ total_comments }} comment{{ total_comments|pluralize }}</a></span> <span class="meta_more"><a  href="{{ i.get_absolute_url }}">Read More...</a></span> </div>
+                  {% endwith %}
                       <p>{{i.content|truncatewords:30|striptags|safe}}</p>
                     </li>
                     {% endfor %}
@@ -257,7 +268,9 @@
                       <div class="media wow fadeInDown"> <a class="media-left" href="{{ i.get_absolute_url }}"><img src="{{i.pic.url}}" height="390px" width="240px" alt=""></a>
                         <div class="media-body">
                           <h4 class="media-heading"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h4>
-                          <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="#">No Comments</a></span> </div>
+                          {% with i.comments.count as total_comments %}
+                        <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="{{ i.get_absolute_url }}">{{ total_comments }} comment{{ total_comments|pluralize }}</a></span> </div>
+                        {% endwith %}
                         </div>
                       </div>
                     </li>
@@ -270,15 +283,17 @@
           </div>
           <div class="technology_catrarea">
             <div class="single_category">
-              <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a class="title_text" href="#">Technology</a> </h2>
+              <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <a class="title_text" href="{% url 'list_of_news_by_category' 'technology' %}">Technology</a> </h2>
               <div class="business_category_left">
                 <ul class="fashion_catgnav wow fadeInDown">
                   {% if technology %}
               {% for i in technology|slice:":1" %}
                   <li>
-                    <div class="catgimg2_container"> <a href="#"><img alt="" src="{{i.pic.url}}" height="390px" width="240px"></a> </div>
-                    <h2 class="catg_titile"><a href="#">{{i.title}}</a></h2>
-                    <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="#">No Comments</a></span> <span class="meta_more"><a  href="{{ i.get_absolute_url }}">Read More...</a></span> </div>
+                    <div class="catgimg2_container"> <a href="{{ i.get_absolute_url }}"><img alt="" src="{{i.pic.url}}" height="390px" width="240px"></a> </div>
+                    <h2 class="catg_titile"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h2>
+                    {% with i.comments.count as total_comments %}
+                  <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="{{ i.get_absolute_url }}">{{ total_comments }} comment{{ total_comments|pluralize }}</a></span> <span class="meta_more"><a  href="{{ i.get_absolute_url }}">Read More...</a></span> </div>
+                  {% endwith %}
                     <p>{{i.content|truncatewords:30|striptags|safe}}</p>
                   </li>
               {% endfor %}
@@ -290,10 +305,12 @@
                   {% if technology %}
               {% for i in technology|slice:"1:4" %}
                   <li>
-                    <div class="media wow fadeInDown"> <a class="media-left" href="#"><img src="{{i.pic.url}}" height="390px" width="240px"></a>
+                    <div class="media wow fadeInDown"> <a class="media-left" href="{{ i.get_absolute_url }}"><img src="{{i.pic.url}}" height="390px" width="240px"></a>
                       <div class="media-body">
-                        <h4 class="media-heading"><a href="#">{{i.title}}</a></h4>
-                        <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="#">No Comments</a></span> </div>
+                        <h4 class="media-heading"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h4>
+                        {% with i.comments.count as total_comments %}
+                        <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="{{ i.get_absolute_url }}">{{ total_comments }} comment{{ total_comments|pluralize }}</a></span> </div>
+                        {% endwith %}
                       </div>
                     </div>
                   </li>
@@ -313,9 +330,9 @@
               {% if data %}
               {% for i in data|slice:":4" %}
               <li>
-                <div class="media wow fadeInDown"> <a href="#" class="media-left"><img alt="" src="{{i.pic.url}}" height="112px" width="112px"> </a>
+                <div class="media wow fadeInDown"> <a href="{{ i.get_absolute_url }}" class="media-left"><img alt="" src="{{i.pic.url}}" height="112px" width="112px"> </a>
                   <div class="media-body">
-                    <h4 class="media-heading"><a href="#">{{i.title}}</a></h4>
+                    <h4 class="media-heading"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h4>
                     <p>{{i.content|truncatewords:15|striptags|safe}}</p>
                   </div>
                 </div>
@@ -327,7 +344,6 @@
           <div class="single_bottom_rightbar">
             <ul role="tablist" class="nav nav-tabs custom-tabs">
               <li class="active" role="presentation"><a data-toggle="tab" role="tab" aria-controls="home" href="#mostPopular">Most Popular</a></li>
-              <li role="presentation"><a data-toggle="tab" role="tab" aria-controls="messages" href="#recentComent">Recent Comment</a></li>
             </ul>
             <div class="tab-content">
               <div id="mostPopular" class="tab-pane fade in active" role="tabpanel">
@@ -335,9 +351,9 @@
                   {% if trend %}
               {% for i in trend|slice:":4" %}
                   <li>
-                    <div class="media wow fadeInDown"> <a class="media-left" href="#"><img src="{{i.pic.url}}" height="390px" width="240px"></a>
+                    <div class="media wow fadeInDown"> <a class="media-left" href="{{ i.get_absolute_url }}"><img src="{{i.pic.url}}" height="390px" width="240px"></a>
                       <div class="media-body">
-                        <h4 class="media-heading"><a href="#">{{i.title}}</a></h4>
+                        <h4 class="media-heading"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h4>
                         <p>{{i.content|truncatewords:15|striptags|safe}}</p>
                       </div>
                     </div>
@@ -346,36 +362,6 @@
               {% endif %}
                 </ul>
               </div>
-              <div id="recentComent" class="tab-pane fade" role="tabpanel">
-                <ul class="small_catg popular_catg">
-                  <li>
-                    <div class="media wow fadeInDown"> <a class="media-left" href="#"><img src="{{i.pic.url}}" height="390px" width="240px"></a>
-                      <div class="media-body">
-                        <h4 class="media-heading"><a href="#">{{i.title}}</a></h4>
-                        <p>{{i.content|truncatewords:15|striptags|safe}}</p>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="media wow fadeInDown"> <a class="media-left" href="#"><img src="{{i.pic.url}}" height="390px" width="240px"></a>
-                      <div class="media-body">
-                        <h4 class="media-heading"><a href="#">{{i.title}}</a></h4>
-                        <p>{{i.content|truncatewords:15|striptags|safe}}</p>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="media wow fadeInDown"> <a class="media-left" href="#"><img src="{{i.pic.url}}" height="390px" width="240px"></a>
-                      <div class="media-body">
-                        <h4 class="media-heading"><a href="#">{{i.title}}</a></h4>
-                        <p>{{i.content|truncatewords:15|striptags|safe}}</p>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
           <div class="single_bottom_rightbar">
             <h2>Blog Archive</h2>
             <div class="blog_archive wow fadeInDown">
@@ -412,7 +398,7 @@
             <ul class="flicker_nav">
               {% if data %}
               {% for i in data|slice:":6" %}
-              <li><a href="#"><img src="{{i.pic.url}}" height="75px" width="75px" alt=""></a></li>
+              <li><a href="{{i.pic.url}}"><img src="{{i.pic.url}}" height="75px" width="75px" alt=""></a></li>
               {% endfor %}
               {% endif %}
             </ul>
