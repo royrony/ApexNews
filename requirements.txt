@@ -15,3 +15,4 @@ query-string==0.0.28
 request==0.0.26
 six==1.11.0
 whitenoise==3.3.1
+django-crispy-forms
