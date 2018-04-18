@@ -1,19 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-{% for k in request.user.article_set.all %}
-<div>
-<h1 style="color: red">Title:</h1> {{k.title}}
+{% extends 'base.html' %}
+{% block head %}
+<title> Articles By {{usr}} </title>
+{% endblock %}
+{% block content %}
+{% load nbsp2space %}
+<div class="content_bottom">
+      <div class="col-lg-8 col-md-8">
+        <div class="content_bottom_left">
+          <div class="single_category wow fadeInDown">
+            <div class="archive_style_1">
+              <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <span class="title_text">Articles By {{usr}}</span> </h2>
+              {% if articles %}
+              {% for i in articles %}
+              <div class="business_category_left wow fadeInDown">
+                <ul class="fashion_catgnav">
+                  <li>
+                    <div class="catgimg2_container"> <a href="{{ i.get_absolute_url }}"><img alt="" src="{{i.pic.url}}"></a> </div>
+                    <h2 class="catg_titile"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h2>
+                    <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="#">No Comments</a></span> <span class="meta_more"><a  href="{{ i.get_absolute_url }}">Read More...</a></span> </div>
+                    <p>{{i.content|truncatewords:30|striptags|safe|cut:"<(?:a\b[^>]*>|/a>)"|nbsp2space}}</p>
+                  </li>
+                </ul>
+              </div>
+              {% endfor %}
+              {% endif %}
+          </div>
+      </div>
+  </div>
 </div>
-<div>
-<h1 style="color: red">Review:</h1> {{k.content|safe}}<br><br>
 </div>
-{% if k.pic %}
-Pic: <img src="{{k.pic.url}}" height="200px" width="200px"><br><br>
-{% endif %}<br><br>
-{% endfor %}
-</body>
-</html>
+{% if articles %}
+<h4 style="margin-left: 33%;color: white;">{% include "pagination.html" with page=articles %}</h4>
+{% endif %}
+{% endblock %}

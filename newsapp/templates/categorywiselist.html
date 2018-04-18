@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% block head %}
-<title> Sign In </title>
+<title> Category Wise List </title>
 {% endblock %}
 {% block content %}
+{% load nbsp2space %}
 <div class="content_bottom">
       <div class="col-lg-8 col-md-8">
         <div class="content_bottom_left">
@@ -17,7 +18,7 @@
                     <div class="catgimg2_container"> <a href="{{ i.get_absolute_url }}"><img alt="" src="{{i.pic.url}}"></a> </div>
                     <h2 class="catg_titile"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h2>
                     <div class="comments_box"> <span class="meta_date">{{i.date_created}}</span> <span class="meta_comment"><a href="#">No Comments</a></span> <span class="meta_more"><a  href="{{ i.get_absolute_url }}">Read More...</a></span> </div>
-                    <p>{{i.content|truncatewords:30|striptags|safe}}</p>
+                    <p>{{i.content|truncatewords:30|striptags|safe|cut:"<(?:a\b[^>]*>|/a>)"|nbsp2space}}</p>
                   </li>
                 </ul>
               </div>

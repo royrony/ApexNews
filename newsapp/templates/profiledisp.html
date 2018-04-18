@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block head %}
-<title>Welcome to Your Profile </title>
+<title>Welcome to {{user.first_name}} Profile </title>
 {% endblock %}
 
 {% block content %}
@@ -21,7 +21,7 @@
             <ol class="breadcrumb">
               <li><a href="#">Home</a></li>
               <li><a href="#">Profile</a></li>
-              <li class="active" style="text-transform: capitalize;">{{request.user}}</li>
+              <li class="active" style="text-transform: capitalize;">{{user.first_name}}</li>
             </ol>
         </div>
     </div>
@@ -32,19 +32,19 @@
 		<div class="col-md-3">
 			<div class="profile-sidebar">
 				<!-- SIDEBAR USERPIC -->
-				{% if request.user.profile.profilepic %}
+				{% if prof.profilepic %}
 				<div class="profile-userpic">
-					<center><img src="{{request.user.profile.profilepic.url}}" class="img-circle" alt="" width="150px" height="150px"></center>
+					<center><img src="{{prof.profilepic.url}}" class="img-circle" alt="" width="150px" height="150px"></center>
 				</div>
 				{% endif %}
 				<!-- END SIDEBAR USERPIC -->
 				<!-- SIDEBAR USER TITLE -->
 				<div class="profile-usertitle">
 					<div class="profile-usertitle-name">
-					<center><h3 style="text-transform: capitalize;">{{request.user}}</h3></center>	
+					<center><h3 style="text-transform: capitalize;">{{user.first_name}}</h3></center>	
 					</div>
 					<div class="profile-usertitle-job">
-					<center><p>{{request.user.profile.bio}}</p></center>	
+					<center><p>{{prof.bio}}</p></center>	
 					</div>
 				</div>
 				<!-- END SIDEBAR USER TITLE -->
@@ -80,9 +80,9 @@
             <div class="profile-content">
             	<br>
             	<br><br>
-			   <b>First Name: {{request.user.first_name}}</b><br>
-<b>Last Name: {{request.user.last_name}}</b><br>
-<b>Email: {{request.user.email}}</b><br>
+			   <b>First Name: {{user.first_name}}</b><br>
+<b>Last Name: {{user.last_name}}</b><br>
+<b>Email: {{user.email}}</b><br>
             </div>
 		</div>
 	</div>

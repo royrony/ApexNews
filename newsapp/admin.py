@@ -18,16 +18,11 @@ class ArticleAdmin(admin.ModelAdmin):
 class StaffAdmin(admin.ModelAdmin):
 	list_display = ('user', 'verified')
 
-class AudienceAdmin(admin.ModelAdmin):
-	list_display = ('user', 'get_interests')
-	
-	def get_interests(self, obj):
-		return "\n".join([p.interests for p in obj.interests.all()])
 
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Profile)
 admin.site.register(Category)
 admin.site.register(Staff, StaffAdmin)
-admin.site.register(Audience, AudienceAdmin)
+
 

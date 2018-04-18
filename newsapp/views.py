@@ -16,6 +16,7 @@ from .decorators import audience_required
 from django.views.generic import CreateView, ListView, UpdateView, TemplateView
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 
 # Create your views here.
 
@@ -24,7 +25,7 @@ from django.contrib import messages
 def index(request):
     if request.user.is_authenticated:
         if request.user.is_staff:
-            return redirect('/profiledisp/')
+            return redirect('article')
         elif request.user.is_audience:
             return redirect('/personalised_feed/')
     else:
@@ -45,7 +46,6 @@ class AudienceInterestsView(UpdateView):
     model = Audience
     form_class = AudienceInterestsForm
     template_name = 'interests_form.html'
-    success_url = reverse_lazy('profiledisp')
 
     def get_object(self):
         return self.request.user.audience
@@ -53,6 +53,10 @@ class AudienceInterestsView(UpdateView):
     def form_valid(self, form):
         messages.success(self.request, 'Interests updated with success!')
         return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse('profiledisp', args=[self.request.user.username])
+
 
 @method_decorator([login_required, audience_required], name='dispatch')
 class ArticleListView(ListView):
@@ -150,7 +154,7 @@ def edit(request,pk):
             article.save()
             form.save_m2m()
             form.save()
-            return HttpResponseRedirect('/article/')
+            return HttpResponseRedirect('/')
     else:
         form=ArticleForm(instance=article)
     return render(request,'edit.html',{'form':form})
@@ -223,7 +227,7 @@ def profile(request):
             user.email=form.cleaned_data.get('email')
             user.profile.profilepic=form.cleaned_data['profilepic']
             user.save()
-            return redirect('/profiledisp/')
+            return redirect('profiledisp',user.username)
     else:
         form=MyProfile(instance=user,initial={
             'bio':user.profile.bio,
@@ -270,14 +274,19 @@ def loggedin(request):
                     user.profile.save()
                     return HttpResponseRedirect('/profile/')
                 else:
-                    return HttpResponseRedirect('/profiledisp/')
+                    return HttpResponseRedirect('/')
             else:
                 logout(request)
                 messages.success(request,'Thank you your account will be verified soon!')
                 return redirect('/accounts/login/')
         elif request.user.is_audience:
-            user=request.user
-            return redirect('article_list')
+             user=request.user
+             if user.profile.flag is 0:
+                user.profile.flag=1
+                user.profile.save()
+                return HttpResponseRedirect('/profile/')
+             else:
+                 return redirect('article_list')
     else:
         return HttpResponse('Page not Found....!')
 
@@ -315,17 +324,32 @@ def article_new(request):
     else:
         form = ArticleForm()
     return render(request, 'post_new.html', {'form': form})
-@login_required
-def profiledisp(request):
-    return render(request,'profiledisp.html')
+
+def profiledisp(request,usr):
+    User = get_user_model()
+    user = User.objects.get(username=usr)
+    prof = Profile.objects.filter(user=user).get()
+    return render(request,'profiledisp.html',{'prof':prof,'user':user})
 
 def about(request):
     return render(request,'about.html')
 def contact(request):
     return render(request,'contact.html')
-@login_required
-def postbyuser(request):
-    return render(request,'postbyuser.html')
+
+def postbyuser(request,usr):
+    data=Article.objects.filter(Q(user__username__exact=usr))
+    paginator = Paginator(data, 8) # 3 articles in each page
+    page = request.GET.get('page')
+    try:
+        articles = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer deliver the first page
+        articles = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        articles = paginator.page(paginator.num_pages)
+    return render(request,'postbyuser.html',{'page': page,'articles': articles,'usr':usr})
+
 
 def categorywise(request,category_slug=None):
     data=Article.objects.filter(Q(moderated=True)).order_by('-date_created')
@@ -333,7 +357,7 @@ def categorywise(request,category_slug=None):
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         data = data.filter(category=category)
-        paginator = Paginator(data, 10) # 3 articles in each page
+        paginator = Paginator(data, 8) # 3 articles in each page
         page = request.GET.get('page')
         try:
             articles = paginator.page(page)

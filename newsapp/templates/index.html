@@ -31,8 +31,14 @@
               <li><a href="/">Home</a></li>
               <li><a href="/static/pages/page.html">About</a></li>
               <li><a href="/static/pages/contact.html">Contact</a></li>
+              {% if not request.user.is_authenticated %}
               <li><a href="{% url 'login' %}">Login</a></li>
               <li><a href="{% url 'signup' %}">Signup</a></li>
+              {% endif %}
+              {% if request.user.is_authenticated %}
+              <li><a href="{% url 'profiledisp' request.user.username %}">Profile</a></li>
+              <li><a href="{% url 'logout' %}">LogOut</a></li>
+              {% endif %}
             </ul>
           </div>
           <div class="header_top_right">
@@ -67,7 +73,7 @@
               </ul>
             </li>
             <li><a href="{% url 'list_of_news_by_category' 'business' %}">Business</a></li>
-            <li><a href="{% url 'list_of_news_by_category' 'sport' %}">Sport</a></li>
+            <li><a href="{% url 'list_of_news_by_category' 'sports' %}">Sport</a></li>
             <li><a href="{% url 'list_of_news_by_category' 'science' %}">Science</a></li>
             <li><a href="{% url 'list_of_news_by_category' 'technology' %}">Technology</a></li>
             <li><a href="{% url 'list_of_news_by_category' 'entertainment' %}">Entertainment</a></li>
