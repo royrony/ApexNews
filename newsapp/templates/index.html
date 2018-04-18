@@ -29,8 +29,8 @@
           <div class="header_top_left">
             <ul class="top_nav">
               <li><a href="/">Home</a></li>
-              <li><a href="/static/pages/page.html">About</a></li>
-              <li><a href="/static/pages/contact.html">Contact</a></li>
+              <li><a href="/about/">About</a></li>
+              <li><a href="/contact/">Contact</a></li>
               {% if not request.user.is_authenticated %}
               <li><a href="{% url 'login' %}">Login</a></li>
               <li><a href="{% url 'signup' %}">Signup</a></li>
