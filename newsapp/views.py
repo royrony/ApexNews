@@ -64,6 +64,7 @@ class ArticleListView(ListView):
     ordering = ('date_created', )
     context_object_name = 'articles'
     template_name = 'article_list.html'
+    paginate_by = 10
 
     def get_queryset(self):
         audience = self.request.user.audience
