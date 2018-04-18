@@ -25,7 +25,7 @@
             </ol>
             <h2 class="post_titile">{{article.title}}</h2>
             <div class="single_page_content">
-              <div class="post_commentbox"> <a href="{% url 'profiledisp' article.user %}"><i class="fa fa-user"></i>{{article.user}}</a> <span><i class="fa fa-calendar"></i>{{article.date_created}}</span> <a href="{% url "list_of_news_by_category" article.category.slug %}"><i class="fa fa-tags"></i>{{article.category}}</a> </div>
+              <div class="post_commentbox"> <a href="{% url 'profiledisp' article.user.username %}"><i class="fa fa-user"></i>{{article.user}}</a> <span><i class="fa fa-calendar"></i>{{article.date_created}}</span> <a href="{% url "list_of_news_by_category" article.category.slug %}"><i class="fa fa-tags"></i>{{article.category}}</a> </div>
               {% if article.pic %}
               <img class="img-center" src="{{article.pic.url}}" alt="">
               {% endif %}
