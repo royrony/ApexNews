@@ -43,8 +43,8 @@
             <li>
               <div class="media wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;"> <a class="media-left related-img" href="{% url 'list_of_news_by_category' article.category.slug %}"><img src="{{i.pic.url}}" alt=""></a>
                 <div class="media-body">
-                  <h4 class="media-heading"><a href="#">{{i.title}}</a></h4>
-                  <p>{{i.content|truncatewords:30|striptags|safe}}</p>
+                  <h4 class="media-heading"><a href="#">{{i.title|truncatewords:5}}</a></h4>
+                  <p>{{i.content|truncatewords:15|striptags|safe}}</p>
                 </div>
               </div>
             </li>
