@@ -21,7 +21,7 @@
             <ol class="breadcrumb">
               <li><a href="/">Home</a></li>
               <li><a href="{% url 'list_of_news_by_category' article.category.slug %}">{{article.category}}</a></li>
-              <li class="active">{{article.title}}</li>
+              <li class="active">{{article.title|truncatewords:5}}</li>
             </ol>
             <h2 class="post_titile">{{article.title}}</h2>
             <div class="single_page_content">
