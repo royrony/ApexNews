@@ -41,9 +41,9 @@
           <h2>Similar Post You May Like <i class="fa fa-thumbs-o-up"></i></h2>
           <ul class="small_catg similar_nav wow fadeInDown animated">
             <li>
-              <div class="media wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;"> <a class="media-left related-img" href="{% url 'list_of_news_by_category' article.category.slug %}"><img src="{{i.pic.url}}" alt=""></a>
+              <div class="media wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;"> <a class="media-left related-img" href="{{ i.get_absolute_url }}"><img src="{{i.pic.url}}" alt=""></a>
                 <div class="media-body">
-                  <h4 class="media-heading"><a href="#">{{i.title|truncatewords:5}}</a></h4>
+                  <h4 class="media-heading"><a href="{{ i.get_absolute_url }}">{{i.title|truncatewords:5}}</a></h4>
                   <p>{{i.content|truncatewords:15|striptags|safe}}</p>
                 </div>
               </div>
