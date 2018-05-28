@@ -32,6 +32,14 @@
               <p>{{article.content|safe}}</p>
             </div>
           </div>
+          <center>
+<div style="position: relative;left: 10px;top:auto;">
+{% ifequal post.user request.user %}
+<a href='/delete/{{post.pk}}/'  class="btn btn-primary btn-md"> Delete</a> 
+<a href='/edit/{{post.pk}}/' class="btn btn-primary btn-md">Edit</a>
+{% endifequal %}
+</div>
+</center>
         </div>
         {% load social_share %}
         <div class="share_post"> <a class="facebook" href="{% post_to_facebook object_or_url %}"><i class="fa fa-facebook"></i>Facebook</a> <a class="googleplus" href="{% post_to_gplus object_or_url %}"><i class="fa fa-google-plus"></i>Google+</a> <a class="linkedin" href="{% post_to_linkedin object_or_url %}"><i class="fa fa-linkedin"></i>LinkedIn</a> <a class="twitter" href="{% post_to_twitter "Check it out!" object_or_url %}"><i class="fa fa-twitter"></i>Twitter</a> <a class="reddit" href="{% post_to_reddit object_or_url %}"><i class="fa fa-reddit"></i>Reddit</a> </div>
@@ -139,11 +147,9 @@
           <div class="single_bottom_rightbar wow fadeInDown">
             <h2>Popular Lnks</h2>
             <ul>
+              <li><a href="#">Home</a></li>
               <li><a href="#">Blog</a></li>
-              <li><a href="#">Blog Home</a></li>
-              <li><a href="#">Error Page</a></li>
               <li><a href="#">Social link</a></li>
-              <li><a href="#">Login</a></li>
             </ul>
           </div>
         </div>
